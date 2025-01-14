@@ -20,7 +20,7 @@
 1. Função get_page_content:
 * Faz uma requisição GET para a URL especificada usando os cabeçalhos fornecidos e retorna o conteúdo da página.
 
-2.Função calculate_hash:
+2. Função calculate_hash:
 * Calcula o hash MD5 do conteúdo HTML da página para detectar mudanças no layout.
 
 3. Função detect_layout_changes:
