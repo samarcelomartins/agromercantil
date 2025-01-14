@@ -191,7 +191,7 @@ Sua equipe usa o Airflow para gerenciar pipelines de dados. Você precisa config
 3. Explicar como Garantir que o Ambiente de Produção Esteja Protegido Contra Deploys com Falhas
 
 ## Solução
-O fluxo do pipeline CI/CD para o Airflow pode ser descrito da seguinte forma:
+### O fluxo do pipeline CI/CD para o Airflow pode ser descrito da seguinte forma:
 
 - Commit e Push: Desenvolvedores fazem commit e push das mudanças no repositório de código (ex.: GitHub, GitLab).
 - Validação de Código: Ferramentas de linting e formatação (ex.: Flake8, Black) são executadas para garantir a qualidade do código.
@@ -201,3 +201,13 @@ O fluxo do pipeline CI/CD para o Airflow pode ser descrito da seguinte forma:
 - Testes em Staging: Testes adicionais são executados no ambiente de staging para garantir que tudo funcione conforme esperado.
 - Deploy em Produção: Se os testes em staging passarem, o código é implantado no ambiente de produção.
 - Monitoramento e Alertas: Ferramentas de monitoramento (ex.: Prometheus, Grafana) e alertas (ex.: Slack, Email) são configuradas para notificar a equipe em caso de falhas.
+
+
+### Garantir que o Ambiente de Produção Esteja Protegido Contra Deploys com Falhas
+Para proteger o ambiente de produção contra deploys com falhas, é crucial implementar as seguintes práticas:
+
+1. Ambiente de Staging: Sempre realizar deploys iniciais em um ambiente de staging que replica o ambiente de produção. Assim, você pode realizar testes finais antes de promover o código para produção.
+2. Testes Automatizados: Implementar testes automatizados robustos que cubram as principais funcionalidades do sistema. Esses testes devem ser executados em cada commit e durante o deploy.
+3. Deploys Gradativos (Canary Deploys): Implementar uma estratégia de deploy gradativo onde as mudanças são liberadas para um pequeno subconjunto de usuários antes de serem liberadas para todos. Isso ajuda a identificar problemas rapidamente sem impactar todos os usuários.
+4. Monitoramento Contínuo: Monitorar continuamente o ambiente de produção usando ferramentas como AWS CloudWatch, Grafana, ou Prometheus. Configurar alertas para detectar rapidamente qualquer problema.
+5. Rollback Automático: Configurar um mecanismo de rollback automático que reverte para a versão anterior do código em caso de falhas críticas durante ou após o deploy.
