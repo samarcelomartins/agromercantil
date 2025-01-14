@@ -202,7 +202,6 @@ Sua equipe usa o Airflow para gerenciar pipelines de dados. Você precisa config
 - Deploy em Produção: Se os testes em staging passarem, o código é implantado no ambiente de produção.
 - Monitoramento e Alertas: Ferramentas de monitoramento (ex.: Prometheus, Grafana) e alertas (ex.: Slack, Email) são configuradas para notificar a equipe em caso de falhas.
 
-
 ### Garantir que o Ambiente de Produção Esteja Protegido Contra Deploys com Falhas
 Para proteger o ambiente de produção contra deploys com falhas, é crucial implementar as seguintes práticas:
 
@@ -212,6 +211,7 @@ Para proteger o ambiente de produção contra deploys com falhas, é crucial imp
 4. Monitoramento Contínuo: Monitorar continuamente o ambiente de produção usando ferramentas como AWS CloudWatch, Grafana, ou Prometheus. Configurar alertas para detectar rapidamente qualquer problema.
 5. Rollback Automático: Configurar um mecanismo de rollback automático que reverte para a versão anterior do código em caso de falhas críticas durante ou após o deploy.
 
+Para mais detalhes, consulte o arquivo `explicacao.md` e `workflow.yaml` no diretório `problema-3-ci-cd`.
 _________
 
 ## Problema 4 - Modelagem de Dados
@@ -244,7 +244,56 @@ Vamos criar um diagrama ER básico que representa as entidades e seus relacionam
 
 ### Scripts SQL
 
+-- Script SQL para Retornar os Produtos Mais Vendidos
+```
+SELECT 
+    p.nome AS produto,
+    SUM(oi.quantidade) AS total_vendido
+FROM 
+    order_items oi
+INNER JOIN 
+    products p ON oi.produto_id = p.id
+GROUP BY 
+    p.nome
+ORDER BY 
+    total_vendido DESC;
+```
+-- Script SQL para Listar o Histórico de Compras de um Cliente Específico
+```
+SELECT 
+    o.id AS pedido_id,
+    o.data_pedido,
+    p.nome AS produto,
+    oi.quantidade,
+    oi.preco_unitario,
+    (oi.quantidade * oi.preco_unitario) AS total
+FROM 
+    orders o
+INNER JOIN 
+    order_items oi ON o.id = oi.pedido_id
+INNER JOIN 
+    products p ON oi.produto_id = p.id
+WHERE 
+    o.cliente_id = ? -- Substitua pelo ID do cliente específico
+ORDER BY 
+    o.data_pedido DESC;
+```
+-- Script SQL para Calcular o Faturamento Mensal
+```
+SELECT 
+    DATE_TRUNC('month', o.data_pedido) AS mes,
+    SUM(oi.quantidade * oi.preco_unitario) AS faturamento_mensal
+FROM 
+    orders o
+INNER JOIN 
+    order_items oi ON o.id = oi.pedido_id
+GROUP BY 
+    mes
+ORDER BY 
+    mes DESC;
+```
 
+Para mais detalhes, consulte o arquivo `explicacao.md` e `queries.sql` no diretório `problema-4-modelagem`.
 
 _________
 
