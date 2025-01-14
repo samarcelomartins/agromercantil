@@ -173,3 +173,4 @@ Para executar os testes, você pode rodar o seguinte comando no terminal:
 ```
 python -m unittest problema-2-pipeline/test_pipeline.py
 ```
+Para mais detalhes, consulte o arquivo `tests_pipeline.py` no diretório `tests`.
