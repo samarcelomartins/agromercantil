@@ -1,6 +1,6 @@
 # Solução Proposta
 
-Estratégia para Configurar um Scraper Resiliente:
+## Estratégia para Configurar um Scraper Resiliente:
 
 1. Evitar bloqueios:
 * Rotação de proxies: Use serviços como ProxyMesh ou Bright Data.
