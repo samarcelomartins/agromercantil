@@ -23,7 +23,7 @@ Este repositório contém as respostas para a avaliação técnica de Engenheiro
    git clone https://github.com/samarcelomartins/engenheirodados-agromercantil.git
    cd avaliacao-engenheiro-dados
 
-
+___________
 # Problema 1 - Banco de Dados (DBA)
 
 ## Descrição
@@ -55,11 +55,11 @@ CREATE TABLE logs (
     log_time TIMESTAMP NOT NULL,
     log_data TEXT
 ) PARTITION BY RANGE (log_time);
-
+ 
 -- Criando tabelas de partição para cada semana
 CREATE TABLE logs_20250101 PARTITION OF logs
     FOR VALUES FROM ('2025-01-01') TO ('2025-01-08');
 
 CREATE TABLE logs_20250108 PARTITION OF logs
     FOR VALUES FROM ('2025-01-08') TO ('2025-01-15');
-
+```
