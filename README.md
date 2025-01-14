@@ -414,7 +414,7 @@ Sua empresa precisa processar grandes volumes de dados em tempo real e armazená
 
 Para processar grandes volumes de dados em tempo real e armazená-los para consultas futuras, podemos utilizar uma arquitetura AWS que envolve serviços como Kinesis, Lambda, Glue, S3 e Redshift.
 
-## Componentes da Arquitetura:
+### Componentes da Arquitetura:
 1. Ingestão em Tempo Real (Kinesis):
 * Amazon Kinesis Data Streams: Coleta e processa dados em tempo real de diversas fontes, como sensores IoT, logs de aplicativos, etc.
 
@@ -428,7 +428,7 @@ Para processar grandes volumes de dados em tempo real e armazená-los para consu
 
 ![Diagrama](https://github.com/user-attachments/assets/2cbbb46b-d935-4342-94cf-3be2995ff4c9)
 
-## Dimensionamento para Lidar com Picos de Tráfego
+### Dimensionamento para Lidar com Picos de Tráfego
 Estratégias de Dimensionamento: 
 1. Auto Scaling:
 * Kinesis Data Streams: Utilize o auto-scaling para ajustar automaticamente o número de shards com base na taxa de ingestão de dados. Configure alarmes no CloudWatch para monitorar o uso dos shards e ajustar conforme necessário.
@@ -447,7 +447,7 @@ Estratégias de Dimensionamento:
 * Amazon CloudWatch: Configure métricas e alarmes no CloudWatch para monitorar o desempenho dos componentes da arquitetura e receber alertas em tempo real sobre possíveis gargalos ou falhas.
 - Monitore métricas como `PutRecord.Success`, `GetRecords.Success`, `Lambda.Invocations`, `Lambda.Errors`, `Redshift.CPUUtilization`, e `Redshift.DiskSpaceUsage`.
 
-## Código de Exemplo: Lambda para Processamento em Tempo Real:
+### Código de Exemplo: Lambda para Processamento em Tempo Real:
 ```
 import json
 import boto3
@@ -485,7 +485,7 @@ Um pipeline de dados apresenta falhas esporádicas que só são descobertas dias
 
 Para resolver os problemas de falhas esporádicas em um pipeline de dados, é crucial implementar um sistema robusto de monitoramento e alertas em tempo real. Isso permitirá a detecção precoce de problemas e uma resposta rápida para minimizar o impacto.
 
-## Estratégia de Monitoramento:
+### Estratégia de Monitoramento:
 1. Monitorar métricas críticas:
 * Tempo de execução: Identificar atrasos ou execução acima do esperado.
 * Volume de dados: Detectar entradas ou saídas anormais.
@@ -495,7 +495,7 @@ Para resolver os problemas de falhas esporádicas em um pipeline de dados, é cr
 * Usar Amazon CloudWatch para coletar métricas e criar alarmes.
 * Enviar notificações via SNS (e-mail, SMS ou integração com ferramentas como Slack/Teams).
 
-## Configuração do Monitoramento no AWS CloudWatch:
+### Configuração do Monitoramento no AWS CloudWatch:
 1. Métricas para pipelines:
 * Lambda:
    * Erros (Errors), duração (Duration), e invocações (Invocations).
@@ -519,7 +519,7 @@ aws cloudwatch put-metric-alarm \
     --alarm-actions arn:aws:sns:us-east-1:123456789012:NotifyMe
 ```
 
-## Estrutura de Alertas em Tempo Real:
+### Estrutura de Alertas em Tempo Real:
 1. Pipeline de Monitoramento:
 * Coleta de logs em CloudWatch Logs.
 * Análise em CloudWatch Metrics.
@@ -529,7 +529,7 @@ aws cloudwatch put-metric-alarm \
 * Amazon EventBridge: Automatizar respostas a eventos críticos (ex.: reprocessar jobs).
 * Integração com sistemas de observabilidade como Datadog ou Prometheus.
 
-## Código Python para Monitoramento e Notificações:
+### Código Python para Monitoramento e Notificações:
 Exemplo de um script que verifica métricas e envia alertas:
 
 ```
@@ -574,3 +574,41 @@ Sua empresa precisa garantir que os dados sensíveis armazenados em seu ambiente
    - Criptografia de dados em repouso e em trânsito.
    - Logs detalhados de acesso e auditoria.
 2. Explique como você verificaria se a empresa está em conformidade com regulamentações de proteção de dados.
+
+## Solução
+
+### Estratégia para Garantir Segurança e Conformidade:
+1. Controle de acesso:
+* Configurar permissões usando IAM (Identity and Access Management):
+* Criar políticas baseadas no princípio do menor privilégio.
+* Separar papéis de usuários por função (ex.: administrador, analista).
+* Usar bucket policies no S3 e grupos de segurança no Redshift para restringir o acesso.
+
+2. Criptografia de dados:
+Em repouso:
+* Ativar criptografia no S3 usando AWS KMS (chaves gerenciadas).
+* Configurar o Redshift para criptografar dados com chaves KMS ou HSM.
+Em trânsito:
+* Exigir conexões seguras (TLS/SSL) para acesso ao Redshift e ao S3.
+
+3. Logs e auditoria:
+* Ativar AWS CloudTrail para monitorar todas as ações nos serviços AWS.
+* Configurar CloudWatch Logs para armazenar logs detalhados de acesso.
+
+4. Anonimização e pseudonimização:
+* Implementar técnicas para mascarar dados sensíveis (ex.: hashing ou criptografia reversível).
+
+### Verificação de Conformidade:
+1. Automatização com AWS Config:
+* Configurar regras que verificam continuamente a conformidade com regulamentos.
+* Exemplo de regra: "Todos os buckets S3 devem estar criptografados."
+
+2. Relatórios de conformidade:
+* Usar AWS Artifact para acessar relatórios de auditoria e certificações.
+* Gerar relatórios personalizados para auditorias de GDPR/LGPD.
+
+Para mais detalhes, consulte os arquivos no diretório `problema-8-governanca`.
+
+_________
+
+## Problema
