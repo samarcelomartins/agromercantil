@@ -2,10 +2,10 @@
 Modelo ER (Entidade-Relacionamento):
 
 1. Entidades principais:
-* clientes: Informações dos clientes (nome, email, etc.).
-* produtos: Informações sobre os produtos (nome, preço, etc.).
-* pedidos: Representa uma compra realizada por um cliente.
-* itens_pedido: Produtos comprados em um pedido específico.
+* clientes: Informações dos clientes (id, nome, email, etc.).
+* produtos: Informações sobre os produtos (id, nome e preco).
+* pedidos: Representa uma compra realizada por um cliente (id, cliente_id (chave estrangeira para Clientes), data_pedidonome, preço, etc.).
+* itens_pedido: Produtos comprados em um pedido específico (id, pedido_id (chave estrangeira para Pedidos), produto_id (chave estrangeira para Produtos), quantidade e preco_unitario).
 
 2. Relacionamentos:
 * Um cliente pode fazer vários pedidos (1:N).
