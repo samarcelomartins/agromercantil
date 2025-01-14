@@ -611,4 +611,100 @@ Para mais detalhes, consulte os arquivos no diretório `problema-8-governanca`.
 
 _________
 
-## Problema
+## Problema 9 - Data Lakes e Data Warehouses
+
+Sua empresa está implementando um Data Lake em S3 para armazenar dados brutos e um Data Warehouse em Redshift para análises estruturadas.
+
+### Tarefas
+1. Explique como você estruturaria os dados no Data Lake para facilitar o consumo no Data Warehouse.
+2. Proponha uma política de gerenciamento do ciclo de vida dos dados no Data Lake, considerando arquivamento e exclusão de dados antigos.
+3. Escreva um script de exemplo que integre dados do Data Lake ao Data Warehouse usando Python e SQL.
+
+## Solução
+
+### **Estruturação do Data Lake**:
+1. **Camadas de dados no S3**:
+   - **Raw**:
+     - Dados brutos, diretamente das fontes (ex.: CSV, JSON, logs).
+     - Organização por fonte e tempo: `s3://data-lake/raw/<fonte>/<ano>/<mês>/`.
+   - **Processed**:
+     - Dados limpos e transformados, prontos para análises intermediárias.
+     - Organização por entidade: `s3://data-lake/processed/<entidade>/<ano>/<mês>/`.
+   - **Curated**:
+     - Dados otimizados para consumo pelo Data Warehouse.
+     - Formatados em Parquet ou ORC para eficiência de leitura.
+
+2. **Schema evolution**:
+   - Usar AWS Glue Data Catalog para gerenciar os metadados do Data Lake.
+   - Adicionar suporte a alterações no esquema sem perder compatibilidade.
+
+---
+
+### **Política de Gerenciamento do Ciclo de Vida dos Dados**:
+1. **Automatizar arquivamento**:
+   - Configurar políticas de ciclo de vida no S3 para mover dados antigos para o Glacier:
+     - Ex.: Dados da camada `raw` são arquivados após 6 meses.
+2. **Exclusão de dados obsoletos**:
+   - Configurar exclusão automática para dados não acessados após X anos.
+   ```bash
+   aws s3api put-bucket-lifecycle-configuration \
+       --bucket meu-data-lake \
+       --lifecycle-configuration file://lifecycle-policy.json
+   ```
+
+Exemplo de **lifecycle-policy.json**:
+```json
+{
+  "Rules": [
+    {
+      "ID": "ArchiveData",
+      "Filter": {"Prefix": "raw/"},
+      "Status": "Enabled",
+      "Transitions": [
+        {"Days": 180, "StorageClass": "GLACIER"}
+      ],
+      "Expiration": {"Days": 3650}
+    }
+  ]
+}
+```
+
+---
+
+### **Integração do Data Lake com o Data Warehouse**:
+1. **ETL (Extract, Transform, Load)**:
+   - Usar AWS Glue para transformar os dados na camada `curated` e carregá-los no Redshift.
+2. **Formato de dados**:
+   - Transformar os dados em Parquet para otimizar a leitura no Redshift.
+3. **Automação do processo**:
+   - Configurar jobs do Glue ou scripts Lambda para execução periódica.
+
+
+### **Código de Integração (Python)**:
+Exemplo para integrar dados do S3 no Redshift:
+```python
+import boto3
+import psycopg2
+
+# Configurações
+s3_bucket = 'meu-data-lake'
+s3_key = 'curated/produtos/2025/01/08/produtos.parquet'
+redshift_conn = psycopg2.connect(
+    dbname='meu_redshift',
+    user='usuario',
+    password='senha',
+    host='redshift.amazonaws.com'
+)
+
+# Carregar dados para o Redshift
+cursor = redshift_conn.cursor()
+cursor.execute(f"""
+    COPY produtos
+    FROM 's3://{s3_bucket}/{s3_key}'
+    IAM_ROLE 'arn:aws:iam::meu-role'
+    FORMAT AS PARQUET;
+""")
+redshift_conn.commit()
+print("Dados carregados no Redshift com sucesso.")
+```
+Para mais detalhes, consulte os arquivos no diretório `problema-9-data-lake`.
