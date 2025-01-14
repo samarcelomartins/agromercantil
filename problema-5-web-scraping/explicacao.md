@@ -34,6 +34,18 @@ Define cabeçalhos que imitam um navegador real para evitar a detecção de bots
 * Executa o scraping e a detecção de mudanças no layout 5 vezes como exemplo.
 * Introduz atrasos aleatórios entre as requisições para imitar comportamento humano.
 
+## Explicação dos Testes Unitários
+1. Testando get_page_content:
+* Usa patch para substituir requests.get com um mock que retorna um conteúdo de página fictício.
+* Verifica se get_page_content retorna o conteúdo esperado.
+
+2. Testando calculate_hash:
+* Verifica se calculate_hash retorna o hash MD5 correto para um conteúdo de página fictício.
+
+3. Testando detect_layout_changes:
+* Usa patch para substituir get_page_content com um mock que retorna dois conteúdos diferentes.
+* Verifica se detect_layout_changes detecta corretamente uma mudança no layout entre duas chamadas consecutivas.
+
 # Benefícios:
 Este exemplo demonstra como configurar um scraper resiliente usando Python e BeautifulSoup. 
 Ele inclui práticas recomendadas para evitar bloqueios, como rotação de IPs, atrasos aleatórios e uso de cabeçalhos realistas. 
