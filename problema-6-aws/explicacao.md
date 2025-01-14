@@ -38,3 +38,11 @@
 
 4. Monitoramento e Alertas:
 * Utilize serviços como Amazon CloudWatch para monitorar métricas de desempenho e configurar alertas para detectar e responder rapidamente a picos de tráfego.
+
+# Benefícios:
+
+A arquitetura proposta utiliza componentes AWS escaláveis e gerenciados para ingestão, processamento e armazenamento de grandes volumes de dados em tempo real. O uso de auto-scaling, provisionamento de capacidade, armazenamento escalável e monitoramento proativo garante que a arquitetura possa lidar eficientemente com picos de tráfego, mantendo a performance e a disponibilidade do sistema.
+
+1. Escalabilidade: Soluções como Kinesis e Lambda se ajustam automaticamente ao volume de tráfego.
+2. Flexibilidade: Integração nativa entre serviços AWS facilita a adaptação.
+3. Custo-benefício: Armazenamento no S3 e processamento on-demand (Lambda) reduzem custos fixos.
