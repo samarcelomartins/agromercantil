@@ -396,3 +396,18 @@ Para executar os testes, você pode rodar o seguinte comando no terminal:
 python -m unittest problema-5-web-scraping/test_scraper.py
 ```
 Para mais detalhes, consulte o arquivo `test_scraper.py` no diretório `tests`.
+
+_________
+
+## Problema 6 - AWS e Infraestrutura
+
+Sua empresa precisa processar grandes volumes de dados em tempo real e armazená-los para consultas futuras.
+
+### Tarefas
+1. Descreva uma arquitetura AWS que inclua:
+   - Ingestão em tempo real (ex.: Kinesis).
+   - Processamento (ex.: Lambda ou Glue).
+   - Armazenamento (ex.: S3 e Redshift).
+2. Explique como dimensionar essa arquitetura para lidar com picos de tráfego.
+
+## Solução
