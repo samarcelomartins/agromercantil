@@ -1,14 +1,14 @@
 # Solução 
-Estrutura dos Dados no Data Lake
+## 1. Estrutura dos Dados no Data Lake
 
-#### Organização do Data Lake
+## Organização do Data Lake
 
 1. **Camadas de Dados**:
    - **Camada de Ingestão**: Armazena dados brutos exatamente como foram recebidos.
    - **Camada de Processamento**: Contém dados processados, limpos e enriquecidos.
    - **Camada de Consumo**: Dados prontos para consumo pelo Data Warehouse e outras aplicações analíticas.
 
-#### Estrutura de Diretórios
+## Estrutura de Diretórios
 
 Organize os dados no Data Lake (Amazon S3) em um esquema de diretórios hierárquico para facilitar a navegação e o processamento:
 
@@ -55,7 +55,7 @@ s3://datalake/
 
 ### 2. Política de Gerenciamento do Ciclo de Vida dos Dados no Data Lake
 
-#### Política de Ciclo de Vida
+## Política de Ciclo de Vida
 
 1. **Armazenamento de Dados Brutos**:
    - Mantenha os dados na camada de ingestão por 90 dias para permitir reprocessamentos, se necessário.
@@ -73,7 +73,7 @@ s3://datalake/
    - Dados arquivados podem ser armazenados no S3 Glacier para redução de custos.
    - Dados antigos (por exemplo, mais de 7 anos) podem ser excluídos permanentemente, conforme as políticas de retenção.
 
-#### Exemplo de Configuração de Ciclo de Vida no S3
+## Exemplo de Configuração de Ciclo de Vida no S3
 
 ```json
 {
@@ -123,9 +123,9 @@ s3://datalake/
 }
 ```
 
-### 3. Script de Integração de Dados do Data Lake ao Data Warehouse
+## 3. Script de Integração de Dados do Data Lake ao Data Warehouse
 
-#### Exemplo de Script em Python e SQL
+## Exemplo de Script em Python e SQL
 
 O script a seguir lê dados do Data Lake (S3), processa-os e carrega-os no Data Warehouse (Redshift).
 
@@ -188,7 +188,7 @@ if __name__ == "__main__":
     print("Dados carregados com sucesso no Redshift.")
 ```
 
-### Explicação do Script
+## Explicação do Script
 
 1. **Configurações**:
    - Define as configurações do bucket S3 e do cluster Redshift.
@@ -206,7 +206,7 @@ if __name__ == "__main__":
    - Carrega os dados no Data Warehouse.
    - Imprime uma mensagem de sucesso.
 
-### Conclusão
+## Benefícios
 
 Esta solução aborda a estruturação dos dados no Data Lake para facilitar o consumo no Data Warehouse, propõe uma política de gerenciamento do ciclo de vida dos dados e fornece um script de exemplo para integrar dados do Data Lake ao Data Warehouse utilizando Python e SQL. Essa abordagem garante uma gestão eficiente e segura dos dados, permitindo análises estruturadas e conformidade com políticas de retenção.
 
