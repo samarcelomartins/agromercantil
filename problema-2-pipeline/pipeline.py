@@ -28,5 +28,12 @@ def main():
     average_value = calculate_average(df, 'nome_da_coluna')
     print(f"A média do campo 'nome_da_coluna' é: {average_value}")
 
+    # Salvar resultado no S3 (curated)
+    resultado = pd.DataFrame({'sensor': ['media'], 'valor': [media]})
+    resultado.to_csv('/tmp/resultado.csv', index=False)
+
+    s3.upload_file('/tmp/resultado.csv', s3_bucket, 'curated/resultado.csv')
+
+
 if __name__ == "__main__":
     main()
