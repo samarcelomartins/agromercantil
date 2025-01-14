@@ -1,4 +1,4 @@
-## Solução Proposta:
+## Solução Proposta
 1. Solução para Implementar Monitoramento e Alertas em Tempo Real
 Ferramentas e Serviços
 * Amazon CloudWatch: Serviço de monitoramento da AWS que coleta e rastreia métricas, coleta e monitora arquivos de log e define alarmes.
@@ -99,7 +99,7 @@ def send_error_rate_metric(stage_name, error_count):
 Condition: Whenever ErrorRate > 5 for 1 datapoint within 5 minutes
 Actions: Send notification to SNS topic "MyPipelineAlerts"
 ```
-Benefícios:
+## Benefícios
 
 Implementar um sistema de monitoramento e alertas em tempo real utilizando Amazon CloudWatch e SNS permite detectar problemas no pipeline de dados rapidamente e responder de forma proativa. Monitorar métricas como tempo de execução, volume de dados, taxa de erros, latência e utilização de recursos garante a operação eficiente e confiável do pipeline. Configurar alarmes no CloudWatch para enviar notificações via SNS ajuda a garantir que a equipe seja informada imediatamente sobre qualquer problema, permitindo uma resposta rápida e eficaz.
 
