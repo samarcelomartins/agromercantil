@@ -174,3 +174,30 @@ Para executar os testes, você pode rodar o seguinte comando no terminal:
 python -m unittest problema-2-pipeline/test_pipeline.py
 ```
 Para mais detalhes, consulte o arquivo `tests_pipeline.py` no diretório `tests`.
+
+_________
+
+## Problema 3 - CI/CD e DevOps
+
+## Descrição
+Sua equipe usa o Airflow para gerenciar pipelines de dados. Você precisa configurar um pipeline CI/CD que:
+- Valide mudanças no código do Airflow antes do deploy.
+- Realize testes automatizados em DAGs (Directed Acyclic Graphs).
+- Envie alertas para o time se algo falhar durante o deploy.
+
+## Tarefas
+1. Descrever o Fluxo do Pipeline CI/CD e Ferramentas Utilizadas
+2. Criar um Arquivo YAML Básico para uma Ferramenta CI/CD
+3. Explicar como Garantir que o Ambiente de Produção Esteja Protegido Contra Deploys com Falhas
+
+## Solução
+O fluxo do pipeline CI/CD para o Airflow pode ser descrito da seguinte forma:
+
+- Commit e Push: Desenvolvedores fazem commit e push das mudanças no repositório de código (ex.: GitHub, GitLab).
+- Validação de Código: Ferramentas de linting e formatação (ex.: Flake8, Black) são executadas para garantir a qualidade do código.
+- Testes Automatizados: Execução de testes unitários e de integração nos DAGs usando frameworks como pytest.
+- Build e Deploy: Se os testes passarem, o código é empacotado e preparado para deploy.
+- Deploy em Ambiente de Staging: O código é implantado em um ambiente de staging para testes adicionais.
+- Testes em Staging: Testes adicionais são executados no ambiente de staging para garantir que tudo funcione conforme esperado.
+- Deploy em Produção: Se os testes em staging passarem, o código é implantado no ambiente de produção.
+- Monitoramento e Alertas: Ferramentas de monitoramento (ex.: Prometheus, Grafana) e alertas (ex.: Slack, Email) são configuradas para notificar a equipe em caso de falhas.
