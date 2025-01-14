@@ -27,6 +27,25 @@
 5. IGNOREHEADER 1: Ignora a primeira linha do arquivo CSV (cabeçalho).
 6. REGION 'sua-regiao': Região onde o bucket S3 está localizado (por exemplo, 'us-west-2').
 
+##Explicação do Teste Unitário
+1. Importações:
+* unittest: Biblioteca padrão do Python para testes unitários.
+* unittest.mock: Para criar mocks e patches.
+* pandas: Para manipulação de DataFrames.
+* Funções read_s3_data e calculate_average do módulo pipeline.
+
+2. Classe de Teste TestPipeline:
+* Define os testes unitários para o pipeline.
+
+3. Teste test_read_s3_data:
+* Usa @patch para simular o cliente boto3.
+* Configura um mock para simular a resposta do S3.
+* Verifica se a função read_s3_data cria um DataFrame corretamente a partir dos dados simulados.
+
+4. Teste test_calculate_average:
+* Cria um DataFrame de exemplo.
+* Verifica se a função calculate_average calcula a média corretamente para a coluna value.
+
 # Benefícios:
 1. Escalabilidade: Soluções AWS como Glue e Redshift são otimizadas para grandes volumes.
 2. Organização: Separar dados "raw" e "curated" facilita a governança.
