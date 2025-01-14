@@ -36,8 +36,14 @@ Sua empresa possui um banco de dados PostgreSQL com uma tabela de logs que cresc
    - Estratégia de indexação
    - Backup e manutenção regular da tabela.
 
+
 ## Solução
 A solução proposta inclui particionamento de tabelas por data, criação de índices nos campos de data e nos campos mais consultados, além de uma rotina de backup diário e limpeza de dados antigos.
+
+### Testes Unitários
+Para garantir que a implementação está correta, foram criados testes unitários usando pgTAP ou Python. Os testes verificam a criação das tabelas particionadas, a criação dos índices e a execução das rotinas de backup e manutenção.
+
+Para mais detalhes, consulte o arquivo `tests.sql` ou `test_dba.py` no diretório `tests`.
 
 ### Implementação
 
@@ -56,3 +62,4 @@ CREATE TABLE logs_20250101 PARTITION OF logs
 
 CREATE TABLE logs_20250108 PARTITION OF logs
     FOR VALUES FROM ('2025-01-08') TO ('2025-01-15');
+
