@@ -244,3 +244,17 @@ Vamos criar um diagrama ER básico que representa as entidades e seus relacionam
 
 ### Scripts SQL
 
+
+
+_________
+
+## Problema 5 - Web Scraping
+
+Você precisa monitorar os preços de produtos em um site de e-commerce que atualiza o layout com frequência e bloqueia bots de forma ativa.
+
+### Tarefas
+1. Explique como configuraria um scraper resiliente para evitar bloqueios.
+2. Escreva um código básico que:
+   - Realize o scraping de uma página fictícia com Python.
+   - Detecte mudanças no layout (ex.: mudanças de tags HTML).
+
