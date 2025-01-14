@@ -427,3 +427,26 @@ Para processar grandes volumes de dados em tempo real e armazená-los para consu
 * Amazon Redshift: Data warehouse para consultas analíticas rápidas e eficientes.
 
 ![Diagrama](https://github.com/user-attachments/assets/2cbbb46b-d935-4342-94cf-3be2995ff4c9)
+
+## Código de Exemplo: Lambda para Processamento em Tempo Real:
+```
+import json
+import boto3
+
+def lambda_handler(event, context):
+    # Conexão com o S3
+    s3 = boto3.client('s3')
+    bucket_name = 'meu-bucket'
+    
+    # Processa eventos recebidos do Kinesis
+    for record in event['Records']:
+        payload = json.loads(record['kinesis']['data'])
+        # Exemplo: transformação simples
+        processed_data = {"id": payload["id"], "valor": payload["valor"] * 2}
+        
+        # Salva dados processados no S3
+        key = f"processed/{payload['id']}.json"
+        s3.put_object(Bucket=bucket_name, Key=key, Body=json.dumps(processed_data))
+    
+    return {"statusCode": 200, "body": "Dados processados e armazenados no S3"}
+```
