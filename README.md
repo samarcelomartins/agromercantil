@@ -154,4 +154,11 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-
+ ### Carregamento no Redshift:
+Exemplo de comando SQL para carregar o arquivo processado do S3 no Redshift:
+```sql
+COPY minha_tabela
+FROM 's3://meu-bucket/curated/resultado.csv'
+IAM_ROLE 'arn:aws:iam::meu-role'
+FORMAT AS CSV;
+```
