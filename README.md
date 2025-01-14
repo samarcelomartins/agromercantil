@@ -428,6 +428,25 @@ Para processar grandes volumes de dados em tempo real e armazená-los para consu
 
 ![Diagrama](https://github.com/user-attachments/assets/2cbbb46b-d935-4342-94cf-3be2995ff4c9)
 
+## Dimensionamento para Lidar com Picos de Tráfego
+Estratégias de Dimensionamento: 
+1. Auto Scaling:
+* Kinesis Data Streams: Utilize o auto-scaling para ajustar automaticamente o número de shards com base na taxa de ingestão de dados. Configure alarmes no CloudWatch para monitorar o uso dos shards e ajustar conforme necessário.
+- Automatize o ajuste de shards com base em métricas como `IncomingBytes` e `IncomingRecords`.
+
+2. Provisionamento de Capacidade:
+* AWS Lambda: Garanta que as funções Lambda estejam configuradas para provisionar a capacidade adequada durante picos de tráfego. Utilize Provisioned Concurrency para manter um pool de instâncias prontas para execução.
+- Configure `Provisioned Concurrency` para reduzir a latência de inicialização a frio durante picos de tráfego.
+
+3. Armazenamento Escalável:
+* Amazon S3: Escala automaticamente com base na quantidade de dados armazenados. Nenhuma ação adicional é necessária para dimensionar o armazenamento S3.
+* Amazon Redshift: Utilize o Redshift Spectrum para consultar diretamente os dados no S3 sem a necessidade de carregá-los no cluster Redshift. Isso permite que você dimensione o armazenamento e o processamento de forma independente.
+- Utilize `Elastic Resize` para ajustar a capacidade do cluster Redshift rapidamente em resposta a picos de carga.
+
+4. Monitoramento e Alertas:
+* Amazon CloudWatch: Configure métricas e alarmes no CloudWatch para monitorar o desempenho dos componentes da arquitetura e receber alertas em tempo real sobre possíveis gargalos ou falhas.
+- Monitore métricas como `PutRecord.Success`, `GetRecords.Success`, `Lambda.Invocations`, `Lambda.Errors`, `Redshift.CPUUtilization`, e `Redshift.DiskSpaceUsage`.
+
 ## Código de Exemplo: Lambda para Processamento em Tempo Real:
 ```
 import json
@@ -450,3 +469,17 @@ def lambda_handler(event, context):
     
     return {"statusCode": 200, "body": "Dados processados e armazenados no S3"}
 ```
+
+_________
+
+## Problema 7 - Monitoramento e Alertas
+
+Um pipeline de dados apresenta falhas esporádicas que só são descobertas dias depois.
+
+### Tarefas
+1. Proponha uma solução para implementar monitoramento e alertas em tempo real.
+2. Explique quais métricas monitorar (ex.: tempo de execução, volume de dados) e como configurar alertas no CloudWatch ou uma ferramenta equivalente.
+
+## Solução
+
+Para resolver os problemas de falhas esporádicas em um pipeline de dados, é crucial implementar um sistema robusto de monitoramento e alertas em tempo real. Isso permitirá a detecção precoce de problemas e uma resposta rápida para minimizar o impacto.
