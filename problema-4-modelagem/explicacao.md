@@ -33,3 +33,8 @@
 * Usamos DATE_TRUNC('month', o.data_pedido) para agrupar os pedidos por mês.
 * Calculamos o faturamento mensal somando (SUM) o total de cada item do pedido (oi.quantidade * oi.preco_unitario).
 * Agrupamos pelo mês e ordenamos em ordem decrescente.
+
+# Benefícios
+1. Escalabilidade: Modelo suporta grande volume de dados e consultas complexas.
+2. Flexibilidade: Permite expandir com novas funcionalidades, como descontos ou categorias de produtos.
+3. Análise: Estrutura otimizada para análises de vendas e comportamento do cliente.
