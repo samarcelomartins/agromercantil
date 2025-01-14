@@ -35,6 +35,9 @@
 * Agrupamos pelo mês e ordenamos em ordem decrescente.
 
 # Benefícios
+
+Com o modelo de dados e os scripts SQL fornecidos, podemos gerenciar pedidos, clientes e produtos de uma loja virtual, além de obter informações críticas como os produtos mais vendidos, o histórico de compras de clientes específicos e o faturamento mensal.
+
 1. Escalabilidade: Modelo suporta grande volume de dados e consultas complexas.
 2. Flexibilidade: Permite expandir com novas funcionalidades, como descontos ou categorias de produtos.
 3. Análise: Estrutura otimizada para análises de vendas e comportamento do cliente.
