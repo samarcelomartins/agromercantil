@@ -14,3 +14,15 @@
 
 4. Monitoramento e alertas:
 * Configurar notificações via Slack ou e-mail para falhas durante o pipeline.
+
+## Ferramentas Utilizadas
+1. GitHub Actions: Para orquestrar o pipeline CI/CD.
+2. flake8 e black: Para validação de código.
+3. pytest: Para execução de testes automatizados.
+4. Docker: Para isolamento e empacotamento de ambientes.
+5. Slack ou Email: Para envio de alertas em caso de falhas.
+
+#Benefícios:
+1. Confiabilidade: Testes automatizados garantem a integridade dos pipelines antes do deploy.
+2. Rapidez: A automação acelera o ciclo de vida de desenvolvimento.
+3. Segurança: Monitoramento e alertas minimizam riscos de erros em produção.
