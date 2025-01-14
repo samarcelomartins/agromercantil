@@ -164,3 +164,12 @@ CSV
 IGNOREHEADER 1
 REGION 'us-west-2';
 ```
+
+### Testes Unitários
+
+Iremos utilizar a biblioteca unittest do Python. O teste verificará se o script de leitura do S3 e a aplicação da transformação simples (cálculo da média de um campo) estão funcionando corretamente.
+
+Para executar os testes, você pode rodar o seguinte comando no terminal:
+```
+python -m unittest problema-2-pipeline/test_pipeline.py
+```
