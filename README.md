@@ -159,6 +159,8 @@ Exemplo de comando SQL para carregar o arquivo processado do S3 no Redshift:
 ```sql
 COPY minha_tabela
 FROM 's3://meu-bucket/curated/resultado.csv'
-IAM_ROLE 'arn:aws:iam::meu-role'
-FORMAT AS CSV;
+IAM_ROLE 'arn:aws:iam::123456789012:role/MeuRole'
+CSV
+IGNOREHEADER 1
+REGION 'us-west-2';
 ```
