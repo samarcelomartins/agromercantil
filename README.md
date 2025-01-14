@@ -40,11 +40,6 @@ Sua empresa possui um banco de dados PostgreSQL com uma tabela de logs que cresc
 ## Solução
 A solução proposta inclui particionamento de tabelas por data, criação de índices nos campos de data e nos campos mais consultados, além de uma rotina de backup diário e limpeza de dados antigos.
 
-### Testes Unitários
-Para garantir que a implementação está correta, foram criados testes unitários usando pgTAP ou Python. Os testes verificam a criação das tabelas particionadas, a criação dos índices e a execução das rotinas de backup e manutenção.
-
-Para mais detalhes, consulte o arquivo `tests.sql` ou `test_dba.py` no diretório `tests`.
-
 ### Implementação
 
 - **Particionamento de Tabelas**:
@@ -63,3 +58,91 @@ CREATE TABLE logs_20250101 PARTITION OF logs
 CREATE TABLE logs_20250108 PARTITION OF logs
     FOR VALUES FROM ('2025-01-08') TO ('2025-01-15');
 ```
+
+### Testes Unitários
+Para garantir que a implementação está correta, foram criados testes unitários usando pgTAP ou Python. Os testes verificam a criação das tabelas particionadas, a criação dos índices e a execução das rotinas de backup e manutenção.
+
+Para mais detalhes, consulte o arquivo `tests.sql` ou `test_dba.py` no diretório `tests`.
+
+_________
+
+## Problema 2 - Pipeline de Dados
+
+## Descrição 
+Você está criando um pipeline que deve:
+- Ler dados brutos de sensores IoT armazenados no S3.
+- Processar os dados em lotes (batch processing).
+- Carregar os resultados no Redshift para análises futuras.
+
+### Tarefas
+1. Desenhe um diagrama arquitetural que represente o pipeline.
+2. Liste os principais desafios técnicos que você enfrentaria e como resolveria cada um.
+3. Escreva um script em Python que implemente a etapa de leitura do S3 e aplicação de uma transformação simples (ex.: cálculo de média de um campo).
+
+## Solução
+
+### Diagrama
+
+(Representação textual)
+1. Sensores → S3 (raw)
+2. AWS Glue/EMR → S3 (curated)
+3. Dados prontos → Amazon Redshift
+
+![Diagrama](https://github.com/user-attachments/assets/a2bde838-09a6-4bbe-8230-c602bef889f9)
+
+### Principais Desafios Técnicos e Soluções
+
+1. Conectividade e Autenticação com S3:
+* Desafio: Garantir que o script tenha acesso seguro ao bucket S3.
+* Solução: Utilizar credenciais IAM seguras e configurar políticas de acesso apropriadas.
+
+2. Processamento em Lotes (Batch Processing):
+* Desafio: Gerenciar grandes volumes de dados e garantir que o processamento seja eficiente.
+* Solução: Utilizar frameworks de processamento em lote como Apache Spark ou AWS Glue para otimizar o processamento podendo configurar paralelismo no Glue e escalabilidade no EMR
+
+3. Carregamento no Redshift:
+* Desafio: Garantir que os dados sejam carregados de forma eficiente e sem erros.
+* Solução: Utilizar a funcionalidade de COPY do Redshift para carregar dados em massa e configurar monitoramento para detectar e corrigir erros.
+
+4. Confiabilidade:
+* Desafio: Garantir a integridade dos dados mesmo em caso de falhas.
+* Solução: Implementar reprocessamento automático e checkpoints com mecanismos de controle de versão e validação de dados para garantir que apenas dados consistentes sejam processados.
+
+5. Formato de dados:
+* Desafio: Sensores podem gerar dados em formatos variados (CSV, JSON, etc.).
+* Solução: Unificar para um formato eficiente (ex.: Parquet ou ORC) no processamento.
+
+### Script Python para Leitura do S3 e Transformação Simples
+
+import boto3
+import pandas as pd
+import io
+
+# Configurações do S3
+s3_bucket = 'nome-do-seu-bucket'
+s3_key = 'caminho/para/seu/arquivo.csv'
+
+# Função para ler dados do S3
+def read_s3_data(bucket, key):
+    s3_client = boto3.client('s3')
+    response = s3_client.get_object(Bucket=bucket, Key=key)
+    data = response['Body'].read()
+    df = pd.read_csv(io.BytesIO(data))
+    return df
+
+# Função para calcular a média de um campo
+def calculate_average(df, column_name):
+    return df[column_name].mean()
+
+def main():
+    # Ler os dados do S3
+    df = read_s3_data(s3_bucket, s3_key)
+    print("Dados lidos do S3:")
+    print(df.head())
+
+    # Calcular a média de um campo específico
+    average_value = calculate_average(df, 'nome_da_coluna')
+    print(f"A média do campo 'nome_da_coluna' é: {average_value}")
+
+if __name__ == "__main__":
+    main()
