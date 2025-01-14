@@ -560,3 +560,17 @@ def check_failed_jobs():
 
 check_failed_jobs()
 ```
+Para mais detalhes, consulte os arquivos no diretório `problema-7-monitoramento`.
+
+_________
+
+## Problema 8 - Data Governance e Segurança
+
+Sua empresa precisa garantir que os dados sensíveis armazenados em seu ambiente AWS estejam protegidos e em conformidade com regulamentações como LGPD ou GDPR.
+
+### Tarefas
+1. Proponha uma estratégia para garantir:
+   - Controle de acesso apropriado em S3 e Redshift.
+   - Criptografia de dados em repouso e em trânsito.
+   - Logs detalhados de acesso e auditoria.
+2. Explique como você verificaria se a empresa está em conformidade com regulamentações de proteção de dados.
