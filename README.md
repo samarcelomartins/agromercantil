@@ -469,6 +469,7 @@ def lambda_handler(event, context):
     
     return {"statusCode": 200, "body": "Dados processados e armazenados no S3"}
 ```
+Para mais detalhes, consulte os arquivos no diretório `problema-6-aws`.
 
 _________
 
@@ -483,3 +484,79 @@ Um pipeline de dados apresenta falhas esporádicas que só são descobertas dias
 ## Solução
 
 Para resolver os problemas de falhas esporádicas em um pipeline de dados, é crucial implementar um sistema robusto de monitoramento e alertas em tempo real. Isso permitirá a detecção precoce de problemas e uma resposta rápida para minimizar o impacto.
+
+## Estratégia de Monitoramento:
+1. Monitorar métricas críticas:
+* Tempo de execução: Identificar atrasos ou execução acima do esperado.
+* Volume de dados: Detectar entradas ou saídas anormais.
+* Taxa de falhas: Monitorar logs para erros recorrentes.
+
+2. Configurar alertas em tempo real:
+* Usar Amazon CloudWatch para coletar métricas e criar alarmes.
+* Enviar notificações via SNS (e-mail, SMS ou integração com ferramentas como Slack/Teams).
+
+## Configuração do Monitoramento no AWS CloudWatch:
+1. Métricas para pipelines:
+* Lambda:
+   * Erros (Errors), duração (Duration), e invocações (Invocations).
+* Glue ou EMR:
+   * Status das execuções, volume de dados processados.
+* S3:
+   * Número de objetos adicionados/removidos.
+
+2. Configuração de alarmes:
+* Exemplo: Configurar um alarme para falhas de execução em um job do Glue.
+
+```
+aws cloudwatch put-metric-alarm \
+    --alarm-name "GlueJobFailures" \
+    --metric-name "FailedJobs" \
+    --namespace "AWS/Glue" \
+    --statistic "Sum" \
+    --threshold 1 \
+    --comparison-operator "GreaterThanOrEqualToThreshold" \
+    --evaluation-periods 1 \
+    --alarm-actions arn:aws:sns:us-east-1:123456789012:NotifyMe
+```
+
+## Estrutura de Alertas em Tempo Real:
+1. Pipeline de Monitoramento:
+* Coleta de logs em CloudWatch Logs.
+* Análise em CloudWatch Metrics.
+* Notificações configuradas com SNS.
+
+2. Ferramentas Complementares:
+* Amazon EventBridge: Automatizar respostas a eventos críticos (ex.: reprocessar jobs).
+* Integração com sistemas de observabilidade como Datadog ou Prometheus.
+
+## Código Python para Monitoramento e Notificações:
+Exemplo de um script que verifica métricas e envia alertas:
+
+```
+import boto3
+
+cloudwatch = boto3.client('cloudwatch')
+sns = boto3.client('sns')
+
+def check_failed_jobs():
+    response = cloudwatch.get_metric_statistics(
+        Namespace='AWS/Glue',
+        MetricName='FailedJobs',
+        Dimensions=[{'Name': 'JobName', 'Value': 'meu-job-glue'}],
+        StartTime=datetime.utcnow() - timedelta(minutes=15),
+        EndTime=datetime.utcnow(),
+        Period=300,
+        Statistics=['Sum']
+    )
+    
+    if response['Datapoints']:
+        failed_jobs = response['Datapoints'][0]['Sum']
+        if failed_jobs > 0:
+            sns.publish(
+                TopicArn='arn:aws:sns:us-east-1:123456789012:NotifyMe',
+                Message=f"Falhas detectadas: {failed_jobs}",
+                Subject="Alerta: Falhas no Job Glue"
+            )
+
+check_failed_jobs()
+```
