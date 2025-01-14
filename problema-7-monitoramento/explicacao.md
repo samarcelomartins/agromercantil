@@ -24,10 +24,47 @@ Utilização de Recursos:
 
 Monitore a utilização de CPU, memória e I/O para garantir que os recursos estão sendo utilizados de forma eficiente.
 
-Configuração de Alertas no CloudWatch
+## Configuração de Alertas no CloudWatch
 Exemplo de Configuração de Alarme no CloudWatch para Tempo de Execução
 Criação de Métrica Personalizada:
 Configure seu pipeline para enviar métricas personalizadas para o CloudWatch. Por exemplo, o tempo de execução de um estágio específico do pipeline.
+
+```
+import boto3
+import time
+
+# Exemplo de envio de métrica personalizada para o CloudWatch
+cloudwatch = boto3.client('cloudwatch')
+
+def send_execution_time_metric(stage_name, execution_time):
+    cloudwatch.put_metric_data(
+        Namespace='MyPipelineMetrics',
+        MetricData=[
+            {
+                'MetricName': 'ExecutionTime',
+                'Dimensions': [
+                    {
+                        'Name': 'StageName',
+                        'Value': stage_name
+                    },
+                ],
+                'Value': execution_time,
+                'Unit': 'Seconds'
+            },
+        ]
+    )
+```
+Configuração de Alarme no CloudWatch:
+Acesse o Console do CloudWatch.
+Vá para "Alarms" e clique em "Create Alarm".
+Selecione a métrica personalizada "ExecutionTime" na namespace "MyPipelineMetrics".
+Defina as condições do alarme (ex.: se o tempo de execução exceder 300 segundos).
+Configure as ações do alarme para enviar notificações via SNS.
+
+```
+Condition: Whenever ExecutionTime > 300 for 1 datapoint within 5 minutes
+Actions: Send notification to SNS topic "MyPipelineAlerts"
+```
 
 Benefícios:
 
