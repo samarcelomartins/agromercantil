@@ -18,19 +18,18 @@
 * itens_pedido (id, pedido_id, produto_id, quantidade).
 
 ## Explicação dos Scripts SQL
-Retornar os Produtos Mais Vendidos:
+1. Retornar os Produtos Mais Vendidos:
+* Usamos SUM(oi.quantidade) para somar a quantidade vendida de cada produto.
+* Fazemos um INNER JOIN entre order_items e products para obter o nome do produto.
+* Agrupamos pelo nome do produto e ordenamos pelo total vendido em ordem decrescente.
 
-Usamos SUM(oi.quantidade) para somar a quantidade vendida de cada produto.
-Fazemos um INNER JOIN entre order_items e products para obter o nome do produto.
-Agrupamos pelo nome do produto e ordenamos pelo total vendido em ordem decrescente.
-Listar o Histórico de Compras de um Cliente Específico:
+2. Listar o Histórico de Compras de um Cliente Específico:
+* Selecionamos as informações do pedido (o.id, o.data_pedido), do produto (p.nome), e dos itens do pedido (oi.quantidade, oi.preco_unitario).
+* Calculamos o total (oi.quantidade * oi.preco_unitario) para cada linha.
+* Filtramos os pedidos pelo cliente_id específico.
+* Ordenamos os resultados pela data do pedido em ordem decrescente.
 
-Selecionamos as informações do pedido (o.id, o.data_pedido), do produto (p.nome), e dos itens do pedido (oi.quantidade, oi.preco_unitario).
-Calculamos o total (oi.quantidade * oi.preco_unitario) para cada linha.
-Filtramos os pedidos pelo cliente_id específico.
-Ordenamos os resultados pela data do pedido em ordem decrescente.
-Calcular o Faturamento Mensal:
-
-Usamos DATE_TRUNC('month', o.data_pedido) para agrupar os pedidos por mês.
-Calculamos o faturamento mensal somando (SUM) o total de cada item do pedido (oi.quantidade * oi.preco_unitario).
-Agrupamos pelo mês e ordenamos em ordem decrescente.
+3. Calcular o Faturamento Mensal:
+* Usamos DATE_TRUNC('month', o.data_pedido) para agrupar os pedidos por mês.
+* Calculamos o faturamento mensal somando (SUM) o total de cada item do pedido (oi.quantidade * oi.preco_unitario).
+* Agrupamos pelo mês e ordenamos em ordem decrescente.
