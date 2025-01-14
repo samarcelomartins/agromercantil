@@ -26,7 +26,6 @@ Este repositório contém as respostas para a avaliação técnica de Engenheiro
 ___________
 # Problema 1 - Banco de Dados (DBA)
 
-## Descrição
 Sua empresa possui um banco de dados PostgreSQL com uma tabela de logs que cresce em 1 milhão de linhas por dia. Atualmente, as consultas realizadas nessa tabela estão extremamente lentas.
 
 ### Tarefas
@@ -68,7 +67,6 @@ _________
 
 ## Problema 2 - Pipeline de Dados
 
-## Descrição 
 Você está criando um pipeline que deve:
 - Ler dados brutos de sensores IoT armazenados no S3.
 - Processar os dados em lotes (batch processing).
@@ -179,7 +177,6 @@ _________
 
 ## Problema 3 - CI/CD e DevOps
 
-## Descrição
 Sua equipe usa o Airflow para gerenciar pipelines de dados. Você precisa configurar um pipeline CI/CD que:
 - Valide mudanças no código do Airflow antes do deploy.
 - Realize testes automatizados em DAGs (Directed Acyclic Graphs).
