@@ -25,7 +25,7 @@
 ## Conclusão
 Este pipeline CI/CD proposto usa GitHub Actions para validar, testar e implantar código do Airflow, com etapas para garantir que apenas código bem validado chegue ao ambiente de produção. A implementação de testes automatizados, deploy em ambiente de staging, e notificações em caso de falhas são práticas essenciais para manter a integridade do ambiente de produção.
 
-#Benefícios:
+# Benefícios:
 1. Confiabilidade: Testes automatizados garantem a integridade dos pipelines antes do deploy.
 2. Rapidez: A automação acelera o ciclo de vida de desenvolvimento.
 3. Segurança: Monitoramento e alertas minimizam riscos de erros em produção.
