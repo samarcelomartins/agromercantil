@@ -378,3 +378,21 @@ for _ in range(5):  # Executar 5 vezes como exemplo
 print("Scraping finalizado.")
 ```
 
+### Principais Desafios Técnicos e Soluções
+
+1. Bloqueio de IP:
+* Solução: Rotação de proxies e redes VPN.
+2. Alteração de layout frequente:
+* Solução: Configurar alertas baseados em hashes ou IDs de elementos.
+3. Desempenho:
+* Solução: Armazenar resultados em banco de dados e configurar tarefas agendadas para rodar em horários fora de pico.
+
+### Testes Unitários
+
+Vamos usar a biblioteca unittest do Python. O teste unitário verificará se o scraper consegue acessar a página corretamente e se a função de detecção de mudanças no layout está funcionando como esperado.
+
+Para executar os testes, você pode rodar o seguinte comando no terminal:
+```
+python -m unittest problema-5-web-scraping/test_scraper.py
+```
+Para mais detalhes, consulte o arquivo `test_scraper.py` no diretório `tests`.
