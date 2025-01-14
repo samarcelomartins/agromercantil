@@ -377,3 +377,4 @@ for _ in range(5):  # Executar 5 vezes como exemplo
 
 print("Scraping finalizado.")
 ```
+
