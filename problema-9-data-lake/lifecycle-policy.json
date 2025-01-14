@@ -1,0 +1,45 @@
+{
+   "Rules": [
+      {
+         "ID": "MoveIngestToArchive",
+         "Prefix": "ingest/",
+         "Status": "Enabled",
+         "Transitions": [
+            {
+               "Days": 90,
+               "StorageClass": "GLACIER"
+            }
+         ]
+      },
+      {
+         "ID": "MoveProcessingToArchive",
+         "Prefix": "processing/",
+         "Status": "Enabled",
+         "Transitions": [
+            {
+               "Days": 365,
+               "StorageClass": "GLACIER"
+            }
+         ]
+      },
+      {
+         "ID": "MoveConsumptionToArchive",
+         "Prefix": "consumption/",
+         "Status": "Enabled",
+         "Transitions": [
+            {
+               "Days": 1095,
+               "StorageClass": "GLACIER"
+            }
+         ]
+      },
+      {
+         "ID": "DeleteOldData",
+         "Prefix": "archive/",
+         "Status": "Enabled",
+         "Expiration": {
+            "Days": 2555
+         }
+      }
+   ]
+}
