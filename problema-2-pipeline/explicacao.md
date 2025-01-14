@@ -1,5 +1,17 @@
 # Solução Proposta
 
+## Arquitetura do Pipeline:
+1. Ingestão:
+* Dados IoT são armazenados no Amazon S3 em uma estrutura organizada (ex.: /raw/YYYY/MM/DD).
+
+2. Processamento:
+* Usar AWS Glue para executar transformações em lote.
+* Alternativa: usar Apache Spark no Amazon EMR para maior flexibilidade.
+
+3. Armazenamento:
+* Salvar os dados processados no S3 em uma camada "curated".
+* Carregar os resultados no Amazon Redshift para análises estruturadas.
+
 ## Explicação do Script
 
 1. Configurações do S3: Definimos o nome do bucket e a chave do objeto (caminho para o arquivo).
