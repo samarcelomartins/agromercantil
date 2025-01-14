@@ -307,3 +307,73 @@ Você precisa monitorar os preços de produtos em um site de e-commerce que atua
    - Realize o scraping de uma página fictícia com Python.
    - Detecte mudanças no layout (ex.: mudanças de tags HTML).
 
+## Solução
+
+### Estratégia para Configurar um Scraper Resiliente:
+* Evitar bloqueios: Rotação de proxies e Alteração de User-Agent.
+* Atrasos randômicos
+* Detectar mudanças no layout
+* Usar ferramentas como BeautifulSoup ou selenium para capturar o HTML.
+* Monitorar alterações nos elementos-chave (ex.: tags, IDs, classes).
+* Autenticação e Captcha: Implementar automação com selenium para lidar com logins e captchas e usar APIs como 2Captcha para resolver captchas automaticamente.
+
+### Código Básico de Scraping com Detecção de Mudanças no Layout
+A seguir, um exemplo de código para realizar scraping de uma página fictícia e detectar mudanças no layout usando Python e a biblioteca BeautifulSoup:
+
+```
+import requests
+from bs4 import BeautifulSoup
+import time
+import random
+import hashlib
+
+# Função para obter o conteúdo da página
+def get_page_content(url, headers):
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    return response.text
+
+# Função para calcular o hash do conteúdo HTML da página
+def calculate_hash(content):
+    return hashlib.md5(content.encode('utf-8')).hexdigest()
+
+# Função para detectar mudanças no layout
+def detect_layout_changes(url, headers, previous_hash=None):
+    content = get_page_content(url, headers)
+    current_hash = calculate_hash(content)
+    
+    if previous_hash and current_hash != previous_hash:
+        print("Mudança detectada no layout da página!")
+    else:
+        print("Nenhuma mudança detectada no layout da página.")
+    
+    return current_hash
+
+# Cabeçalhos imitando um navegador real
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Referer': 'https://www.google.com/'
+}
+
+# URL da página fictícia
+url = 'https://example.com/produtos'
+
+# Intervalo de tempo entre as requisições (2 a 5 segundos)
+delay_range = (2, 5)
+
+# Hash anterior do layout
+previous_hash = None
+
+# Realizar scraping e detecção de mudanças no layout
+for _ in range(5):  # Executar 5 vezes como exemplo
+    try:
+        previous_hash = detect_layout_changes(url, headers, previous_hash)
+    except requests.RequestException as e:
+        print(f"Erro ao acessar a página: {e}")
+    
+    # Atraso aleatório entre as requisições
+    time.sleep(random.randint(*delay_range))
+
+print("Scraping finalizado.")
+```
