@@ -211,3 +211,36 @@ Para proteger o ambiente de produção contra deploys com falhas, é crucial imp
 3. Deploys Gradativos (Canary Deploys): Implementar uma estratégia de deploy gradativo onde as mudanças são liberadas para um pequeno subconjunto de usuários antes de serem liberadas para todos. Isso ajuda a identificar problemas rapidamente sem impactar todos os usuários.
 4. Monitoramento Contínuo: Monitorar continuamente o ambiente de produção usando ferramentas como AWS CloudWatch, Grafana, ou Prometheus. Configurar alertas para detectar rapidamente qualquer problema.
 5. Rollback Automático: Configurar um mecanismo de rollback automático que reverte para a versão anterior do código em caso de falhas críticas durante ou após o deploy.
+
+_________
+
+## Problema 4 - Modelagem de Dados
+
+## Descrição
+Um cliente deseja uma base de dados para gerenciar pedidos, clientes e produtos de uma loja virtual. Ele precisa saber:
+- Quais são os produtos mais vendidos.
+- O histórico de compras de cada cliente.
+- A evolução mensal do faturamento.
+
+## Tarefas
+1. Modele o banco de dados, criando um esquema ER (Entidade-Relacionamento).
+2. Escreva scripts SQL para:
+   - Retornar os produtos mais vendidos.
+   - Listar o histórico de compras de um cliente específico.
+   - Calcular o faturamento mensal.
+
+## Solução
+
+###  Esquema ER
+Vamos criar um diagrama ER básico que representa as entidades e seus relacionamentos.
+
+![Diagrama ER](https://github.com/user-attachments/assets/c4254e19-d540-4058-9de0-6bd1ffcd2e14)
+
+
+* Clientes (customers): Armazena informações dos clientes.
+* Produtos (products): Armazena informações dos produtos.
+* Pedidos (orders): Armazena informações dos pedidos realizados.
+* Itens do Pedido (order_items): Armazena os produtos que compõem cada pedido.
+
+### Scripts SQL
+
