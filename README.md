@@ -411,3 +411,19 @@ Sua empresa precisa processar grandes volumes de dados em tempo real e armazená
 2. Explique como dimensionar essa arquitetura para lidar com picos de tráfego.
 
 ## Solução
+
+Para processar grandes volumes de dados em tempo real e armazená-los para consultas futuras, podemos utilizar uma arquitetura AWS que envolve serviços como Kinesis, Lambda, Glue, S3 e Redshift.
+
+## Componentes da Arquitetura:
+1. Ingestão em Tempo Real (Kinesis):
+* Amazon Kinesis Data Streams: Coleta e processa dados em tempo real de diversas fontes, como sensores IoT, logs de aplicativos, etc.
+
+2. Processamento (Lambda ou Glue):
+* AWS Lambda: Executa código em resposta a eventos, como novos dados chegando no Kinesis, para processamento em tempo real.
+* AWS Glue: Serviço de ETL (Extract, Transform, Load) gerenciado que pode ser usado para processamento em lote e transformação de dados.
+
+3. Armazenamento (S3 e Redshift):
+* Amazon S3: Armazena dados brutos e processados de forma escalável e econômica.
+* Amazon Redshift: Data warehouse para consultas analíticas rápidas e eficientes.
+
+![Diagrama](https://github.com/user-attachments/assets/2cbbb46b-d935-4342-94cf-3be2995ff4c9)
