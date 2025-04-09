@@ -20,7 +20,7 @@ Este repositório contém as respostas para a avaliação técnica de Engenheiro
 ## Como Executar
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/samarcelomartins/engenheirodados-agromercantil.git
+   git clone https://github.com/samarcelomartins/agromercantil.git
    cd avaliacao-engenheiro-dados
 
 ___________
